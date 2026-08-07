@@ -1,0 +1,1673 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Obscura · Give every agent its own browser</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ═══════════════════════════════════════════════════════════════
+     OBSCURA DESIGN SYSTEM - Token-driven, build-free CSS
+     Optimized for: consistency, accessibility, fast delivery
+     ═══════════════════════════════════════════════════════════════ */
+
+      :root {
+        /* Typography */
+        --font-primary:
+          "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --font-mono:
+          "Geist Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+          Consolas, monospace;
+        --font-size-xs: 13.5px;
+        --font-size-sm: 14px;
+        --font-size-md: 14.5px;
+        --font-size-lg: 15px;
+        --font-size-xl: 16px;
+        --font-size-2xl: 17px;
+        --font-size-3xl: 18px;
+        --font-size-4xl: 19px;
+        --font-size-hero: clamp(40px, 5vw, 72px);
+        --font-size-display: clamp(28px, 3.5vw, 48px);
+        --font-weight-base: 400;
+        --font-weight-medium: 500;
+        --font-weight-semibold: 600;
+        --font-weight-bold: 700;
+        --line-height-base: 24px;
+        --line-height-tight: 1.15;
+        --line-height-snug: 1.3;
+        --line-height-normal: 1.5;
+        --line-height-relaxed: 1.65;
+
+        /* Colors */
+        --color-text-primary: #fafafa;
+        --color-text-secondary: #8a8a8a;
+        --color-text-tertiary: #e8e8e8;
+        --color-surface-base: #000000;
+        --color-surface-muted: #ffffff;
+        --color-surface-elevated: #0a0a0a;
+        --color-surface-hover: #111111;
+        --color-border: #1a1a1a;
+        --color-border-strong: #2a2a2a;
+        --color-accent: #fafafa;
+        --color-accent-hover: #ffffff;
+        --color-code-bg: #0d0d0d;
+        --color-code-border: #1f1f1f;
+
+        /* Spacing */
+        --space-1: 7px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 13px;
+        --space-5: 14px;
+        --space-6: 16px;
+        --space-7: 17px;
+        --space-8: 20px;
+        --space-10: 28px;
+        --space-12: 36px;
+        --space-16: 48px;
+        --space-20: 64px;
+        --space-24: 80px;
+        --space-32: 120px;
+
+        /* Radius */
+        --radius-sm: 4px;
+        --radius-md: 6px;
+        --radius-lg: 8px;
+        --radius-xl: 12px;
+        --radius-full: 9999px;
+
+        /* Motion */
+        --motion-instant: 150ms;
+        --motion-fast: 160ms;
+        --motion-normal: 180ms;
+        --motion-slow: 700ms;
+        --easing-base: cubic-bezier(0.4, 0, 0.2, 1);
+        --easing-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+        /* Z-index */
+        --z-dropdown: 100;
+        --z-sticky: 200;
+        --z-modal: 300;
+        --z-toast: 400;
+      }
+
+      /* Reset */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      body {
+        font-family: var(--font-primary);
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-base);
+        line-height: var(--line-height-normal);
+        color: var(--color-text-primary);
+        background: var(--color-surface-base);
+        -webkit-font-smoothing: antialiased;
+      }
+      img,
+      svg {
+        display: block;
+        max-width: 100%;
+      }
+      button,
+      input {
+        font: inherit;
+        color: inherit;
+      }
+      button {
+        cursor: pointer;
+        border: none;
+        background: none;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      ul,
+      ol {
+        list-style: none;
+      }
+      code,
+      pre {
+        font-family: var(--font-mono);
+      }
+
+      /* ═══════════════════════════════════════════════════════════════
+     UTILITY CLASSES - Semantic, token-driven, composable
+     ═══════════════════════════════════════════════════════════════ */
+
+      /* Container */
+      .obs-container {
+        width: 100%;
+        max-width: 1100px;
+        margin-inline: auto;
+        padding-inline: var(--space-8);
+      }
+      @media (min-width: 768px) {
+        .obs-container {
+          padding-inline: var(--space-16);
+        }
+      }
+
+      /* Layout */
+      .obs-flex {
+        display: flex;
+      }
+      .obs-inline-flex {
+        display: inline-flex;
+      }
+      .obs-grid {
+        display: grid;
+      }
+      .obs-block {
+        display: block;
+      }
+      .obs-hidden {
+        display: none;
+      }
+      .obs-flex-col {
+        flex-direction: column;
+      }
+      .obs-flex-row {
+        flex-direction: row;
+      }
+      .obs-items-center {
+        align-items: center;
+      }
+      .obs-items-start {
+        align-items: flex-start;
+      }
+      .obs-justify-center {
+        justify-content: center;
+      }
+      .obs-justify-between {
+        justify-content: space-between;
+      }
+      .obs-flex-wrap {
+        flex-wrap: wrap;
+      }
+      .obs-flex-1 {
+        flex: 1;
+      }
+      .obs-shrink-0 {
+        flex-shrink: 0;
+      }
+      .obs-gap-1 {
+        gap: var(--space-1);
+      }
+      .obs-gap-2 {
+        gap: var(--space-2);
+      }
+      .obs-gap-3 {
+        gap: var(--space-3);
+      }
+      .obs-gap-4 {
+        gap: var(--space-4);
+      }
+      .obs-gap-5 {
+        gap: var(--space-5);
+      }
+      .obs-gap-6 {
+        gap: var(--space-6);
+      }
+      .obs-gap-8 {
+        gap: var(--space-8);
+      }
+      .obs-gap-10 {
+        gap: var(--space-10);
+      }
+      .obs-gap-12 {
+        gap: var(--space-12);
+      }
+
+      /* Grid */
+      .obs-grid-cols-1 {
+        grid-template-columns: 1fr;
+      }
+      .obs-grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .obs-grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .obs-grid-cols-4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      @media (min-width: 768px) {
+        .md\:obs-grid-cols-2 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .md\:obs-grid-cols-3 {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .md\:obs-flex {
+          display: flex;
+        }
+        .md\:obs-hidden {
+          display: none;
+        }
+      }
+      @media (min-width: 1024px) {
+        .lg\:obs-grid-cols-3 {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .lg\:obs-grid-cols-4 {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      /* Spacing */
+      .obs-p-1 {
+        padding: var(--space-1);
+      }
+      .obs-p-2 {
+        padding: var(--space-2);
+      }
+      .obs-p-3 {
+        padding: var(--space-3);
+      }
+      .obs-p-4 {
+        padding: var(--space-4);
+      }
+      .obs-p-6 {
+        padding: var(--space-6);
+      }
+      .obs-p-8 {
+        padding: var(--space-8);
+      }
+      .obs-px-4 {
+        padding-inline: var(--space-4);
+      }
+      .obs-px-6 {
+        padding-inline: var(--space-6);
+      }
+      .obs-px-8 {
+        padding-inline: var(--space-8);
+      }
+      .obs-py-1 {
+        padding-block: var(--space-1);
+      }
+      .obs-py-2 {
+        padding-block: var(--space-2);
+      }
+      .obs-py-3 {
+        padding-block: var(--space-3);
+      }
+      .obs-py-4 {
+        padding-block: var(--space-4);
+      }
+      .obs-py-6 {
+        padding-block: var(--space-6);
+      }
+      .obs-py-8 {
+        padding-block: var(--space-8);
+      }
+      .obs-py-10 {
+        padding-block: var(--space-10);
+      }
+      .obs-py-12 {
+        padding-block: var(--space-12);
+      }
+      .obs-py-16 {
+        padding-block: var(--space-16);
+      }
+      .obs-py-20 {
+        padding-block: var(--space-20);
+      }
+      .obs-py-24 {
+        padding-block: var(--space-24);
+      }
+      .obs-py-32 {
+        padding-block: var(--space-32);
+      }
+      .obs-m-0 {
+        margin: 0;
+      }
+      .obs-mt-2 {
+        margin-top: var(--space-2);
+      }
+      .obs-mt-3 {
+        margin-top: var(--space-3);
+      }
+      .obs-mt-4 {
+        margin-top: var(--space-4);
+      }
+      .obs-mt-6 {
+        margin-top: var(--space-6);
+      }
+      .obs-mt-8 {
+        margin-top: var(--space-8);
+      }
+      .obs-mt-10 {
+        margin-top: var(--space-10);
+      }
+      .obs-mt-12 {
+        margin-top: var(--space-12);
+      }
+      .obs-mt-16 {
+        margin-top: var(--space-16);
+      }
+      .obs-mt-20 {
+        margin-top: var(--space-20);
+      }
+      .obs-mb-2 {
+        margin-bottom: var(--space-2);
+      }
+      .obs-mb-3 {
+        margin-bottom: var(--space-3);
+      }
+      .obs-mb-4 {
+        margin-bottom: var(--space-4);
+      }
+      .obs-mb-6 {
+        margin-bottom: var(--space-6);
+      }
+      .obs-mb-8 {
+        margin-bottom: var(--space-8);
+      }
+      .obs-mb-10 {
+        margin-bottom: var(--space-10);
+      }
+      .obs-mb-12 {
+        margin-bottom: var(--space-12);
+      }
+      .obs-mb-16 {
+        margin-bottom: var(--space-16);
+      }
+      .obs-mx-auto {
+        margin-inline: auto;
+      }
+      .obs-ml-auto {
+        margin-left: auto;
+      }
+
+      /* Typography */
+      .obs-text-xs {
+        font-size: var(--font-size-xs);
+      }
+      .obs-text-sm {
+        font-size: var(--font-size-sm);
+      }
+      .obs-text-md {
+        font-size: var(--font-size-md);
+      }
+      .obs-text-lg {
+        font-size: var(--font-size-lg);
+      }
+      .obs-text-xl {
+        font-size: var(--font-size-xl);
+      }
+      .obs-text-2xl {
+        font-size: var(--font-size-2xl);
+      }
+      .obs-text-3xl {
+        font-size: var(--font-size-3xl);
+      }
+      .obs-text-4xl {
+        font-size: var(--font-size-4xl);
+      }
+      .obs-text-hero {
+        font-size: var(--font-size-hero);
+      }
+      .obs-text-display {
+        font-size: var(--font-size-display);
+      }
+      .obs-font-light {
+        font-weight: 300;
+      }
+      .obs-font-base {
+        font-weight: var(--font-weight-base);
+      }
+      .obs-font-medium {
+        font-weight: var(--font-weight-medium);
+      }
+      .obs-font-semibold {
+        font-weight: var(--font-weight-semibold);
+      }
+      .obs-font-bold {
+        font-weight: var(--font-weight-bold);
+      }
+      .obs-leading-tight {
+        line-height: var(--line-height-tight);
+      }
+      .obs-leading-snug {
+        line-height: var(--line-height-snug);
+      }
+      .obs-leading-normal {
+        line-height: var(--line-height-normal);
+      }
+      .obs-leading-relaxed {
+        line-height: var(--line-height-relaxed);
+      }
+      .obs-tracking-tight {
+        letter-spacing: -0.02em;
+      }
+      .obs-tracking-normal {
+        letter-spacing: 0;
+      }
+      .obs-text-center {
+        text-align: center;
+      }
+      .obs-text-left {
+        text-align: left;
+      }
+      .obs-text-mono {
+        font-family: var(--font-mono);
+      }
+
+      /* Colors */
+      .obs-text-primary {
+        color: var(--color-text-primary);
+      }
+      .obs-text-secondary {
+        color: var(--color-text-secondary);
+      }
+      .obs-text-tertiary {
+        color: var(--color-text-tertiary);
+      }
+      .obs-text-muted {
+        color: var(--color-text-secondary);
+      }
+      .obs-bg-base {
+        background: var(--color-surface-base);
+      }
+      .obs-bg-elevated {
+        background: var(--color-surface-elevated);
+      }
+      .obs-bg-hover:hover {
+        background: var(--color-surface-hover);
+      }
+      .obs-bg-code {
+        background: var(--color-code-bg);
+      }
+
+      /* Borders */
+      .obs-border {
+        border: 1px solid var(--color-border);
+      }
+      .obs-border-strong {
+        border-color: var(--color-border-strong);
+      }
+      .obs-border-t {
+        border-top: 1px solid var(--color-border);
+      }
+      .obs-border-b {
+        border-bottom: 1px solid var(--color-border);
+      }
+      .obs-rounded-sm {
+        border-radius: var(--radius-sm);
+      }
+      .obs-rounded-md {
+        border-radius: var(--radius-md);
+      }
+      .obs-rounded-lg {
+        border-radius: var(--radius-lg);
+      }
+      .obs-rounded-xl {
+        border-radius: var(--radius-xl);
+      }
+      .obs-rounded-full {
+        border-radius: var(--radius-full);
+      }
+
+      /* Effects */
+      .obs-transition {
+        transition: all var(--motion-normal) var(--easing-base);
+      }
+      .obs-transition-fast {
+        transition: all var(--motion-fast) var(--easing-base);
+      }
+      .obs-transition-slow {
+        transition: all var(--motion-slow) var(--easing-base);
+      }
+      .obs-opacity-0 {
+        opacity: 0;
+      }
+      .obs-opacity-60 {
+        opacity: 0.6;
+      }
+      .obs-opacity-100 {
+        opacity: 1;
+      }
+      .obs-overflow-hidden {
+        overflow: hidden;
+      }
+      .obs-w-full {
+        width: 100%;
+      }
+      .obs-max-w-sm {
+        max-width: 480px;
+      }
+      .obs-max-w-md {
+        max-width: 600px;
+      }
+      .obs-max-w-lg {
+        max-width: 720px;
+      }
+      .obs-max-w-xl {
+        max-width: 900px;
+      }
+      .obs-max-w-2xl {
+        max-width: 1100px;
+      }
+      .obs-h-full {
+        height: 100%;
+      }
+      .obs-min-h-screen {
+        min-height: 100vh;
+      }
+      .obs-relative {
+        position: relative;
+      }
+      .obs-sticky {
+        position: sticky;
+      }
+      .obs-top-0 {
+        top: 0;
+      }
+      .obs-z-50 {
+        z-index: var(--z-sticky);
+      }
+      .obs-backdrop-blur {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .obs-bg-opacity-80 {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+
+      /* ═══════════════════════════════════════════════════════════════
+     COMPONENT PRIMITIVES
+     ═══════════════════════════════════════════════════════════════ */
+
+      /* Button */
+      .obs-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-2);
+        padding: var(--space-3) var(--space-5);
+        border-radius: var(--radius-md);
+        font-weight: var(--font-weight-medium);
+        font-size: var(--font-size-sm);
+        line-height: var(--line-height-base);
+        border: 1px solid var(--color-border-strong);
+        cursor: pointer;
+        background: transparent;
+        color: var(--color-text-primary);
+        transition: all var(--motion-fast) var(--easing-base);
+        white-space: nowrap;
+      }
+      .obs-btn:hover {
+        background: var(--color-surface-hover);
+        border-color: var(--color-text-secondary);
+      }
+      .obs-btn:focus-visible {
+        outline: 2px solid var(--color-text-primary);
+        outline-offset: 2px;
+      }
+      .obs-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .obs-btn-primary {
+        background: var(--color-text-primary);
+        color: var(--color-surface-base);
+        border-color: var(--color-text-primary);
+      }
+      .obs-btn-primary:hover {
+        background: var(--color-accent-hover);
+        border-color: var(--color-accent-hover);
+      }
+      .obs-btn-ghost {
+        border-color: transparent;
+        color: var(--color-text-secondary);
+      }
+      .obs-btn-ghost:hover {
+        color: var(--color-text-primary);
+        background: transparent;
+      }
+      .obs-btn-sm {
+        padding: var(--space-2) var(--space-3);
+        font-size: var(--font-size-xs);
+      }
+      .obs-btn-lg {
+        padding: var(--space-4) var(--space-6);
+        font-size: var(--font-size-md);
+      }
+
+      /* Link */
+      .obs-link {
+        color: var(--color-text-primary);
+        transition: opacity var(--motion-fast);
+      }
+      .obs-link:hover {
+        opacity: 0.7;
+      }
+      .obs-link:focus-visible {
+        outline: 2px solid var(--color-text-primary);
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
+
+      /* Code Block */
+      .obs-code-block {
+        background: var(--color-code-bg);
+        border: 1px solid var(--color-code-border);
+        border-radius: var(--radius-lg);
+        padding: var(--space-6) var(--space-8);
+        font-family: var(--font-mono);
+        font-size: var(--font-size-sm);
+        line-height: var(--line-height-relaxed);
+        color: var(--color-text-tertiary);
+        overflow-x: auto;
+        position: relative;
+      }
+      .obs-code-block .obs-kw {
+        color: #c586c0;
+      } /* keyword */
+      .obs-code-block .obs-func {
+        color: #dcdcaa;
+      } /* function */
+      .obs-code-block .obs-str {
+        color: #ce9178;
+      } /* string */
+      .obs-code-block .obs-cmt {
+        color: #6a9955;
+      } /* comment */
+      .obs-code-block .obs-num {
+        color: #b5cea8;
+      } /* number */
+
+      /* Stat Card */
+      .obs-stat {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+      }
+      .obs-stat-value {
+        font-size: var(--font-size-hero);
+        font-weight: var(--font-weight-bold);
+        line-height: var(--line-height-tight);
+        letter-spacing: -0.03em;
+      }
+      .obs-stat-label {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-secondary);
+        line-height: var(--line-height-normal);
+      }
+
+      /* Feature Card */
+      .obs-feature {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-4);
+      }
+      .obs-feature-num {
+        font-size: var(--font-size-xs);
+        color: var(--color-text-secondary);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: 0.05em;
+      }
+      .obs-feature-title {
+        font-size: var(--font-size-2xl);
+        font-weight: var(--font-weight-semibold);
+        line-height: var(--line-height-snug);
+      }
+      .obs-feature-desc {
+        font-size: var(--font-size-md);
+        color: var(--color-text-secondary);
+        line-height: var(--line-height-relaxed);
+      }
+
+      /* Step Card */
+      .obs-step {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-4);
+        padding: var(--space-8);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        transition: border-color var(--motion-fast);
+      }
+      .obs-step:hover {
+        border-color: var(--color-border-strong);
+      }
+      .obs-step-num {
+        font-size: var(--font-size-xs);
+        color: var(--color-text-secondary);
+        font-weight: var(--font-weight-medium);
+      }
+      .obs-step-title {
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-semibold);
+      }
+      .obs-step-desc {
+        font-size: var(--font-size-md);
+        color: var(--color-text-secondary);
+        line-height: var(--line-height-relaxed);
+      }
+
+      /* Section Label */
+      .obs-section-label {
+        font-size: var(--font-size-xs);
+        color: var(--color-text-secondary);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      /* Dotted Pattern (CSS-generated, transparent bg) */
+      .obs-dots {
+        background-image: radial-gradient(
+          circle,
+          rgba(250, 250, 250, 0.15) 1px,
+          transparent 1px
+        );
+        background-size: 24px 24px;
+      }
+
+      /* Divider */
+      .obs-divider {
+        border: none;
+        border-top: 1px solid var(--color-border);
+      }
+
+      /* Reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      /* DevinimJS Component Styles */
+      .dv-accordion-item {
+        border-bottom: 1px solid var(--color-border);
+      }
+      .dv-accordion-trigger {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--space-6) 0;
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        text-align: left;
+        cursor: pointer;
+        transition: color var(--motion-fast);
+        background: none;
+        border: none;
+      }
+      .dv-accordion-trigger:hover {
+        color: var(--color-text-secondary);
+      }
+      .dv-accordion-trigger::after {
+        content: "+";
+        font-size: var(--font-size-xl);
+        color: var(--color-text-secondary);
+        transition: transform var(--motion-fast);
+      }
+      .dv-accordion-item[data-open="true"] .dv-accordion-trigger::after {
+        content: "−";
+      }
+      .dv-accordion-panel {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height var(--motion-slow) var(--easing-base),
+          padding var(--motion-normal);
+        color: var(--color-text-secondary);
+        line-height: var(--line-height-relaxed);
+        font-size: var(--font-size-md);
+      }
+      .dv-accordion-item[data-open="true"] .dv-accordion-panel {
+        max-height: 300px;
+        padding-bottom: var(--space-6);
+      }
+
+      .dv-toast-container {
+        position: fixed;
+        bottom: var(--space-8);
+        right: var(--space-8);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+        z-index: var(--z-toast);
+        pointer-events: none;
+      }
+      .dv-toast {
+        background: var(--color-surface-elevated);
+        color: var(--color-text-primary);
+        padding: var(--space-4) var(--space-6);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--color-border-strong);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        animation: dvToastSlide var(--motion-normal) var(--easing-base);
+        pointer-events: auto;
+        min-width: 280px;
+        font-size: var(--font-size-sm);
+      }
+      @keyframes dvToastSlide {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes dvToastFade {
+        from {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+      }
+      .dv-toast.leaving {
+        animation: dvToastFade var(--motion-normal) forwards;
+      }
+
+      .dv-fade-in {
+        animation: dvFadeIn var(--motion-slow) var(--easing-base) forwards;
+        opacity: 0;
+      }
+      @keyframes dvFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .dv-delay-1 {
+        animation-delay: 100ms;
+      }
+      .dv-delay-2 {
+        animation-delay: 200ms;
+      }
+      .dv-delay-3 {
+        animation-delay: 300ms;
+      }
+
+      .dv-counter-value {
+        font-variant-numeric: tabular-nums;
+      }
+    </style>
+  </head>
+  <body class="obs-bg-base obs-text-primary">
+    <!-- ═══════════════════════════════════════════════════════════════
+     NAVIGATION
+     ═══════════════════════════════════════════════════════════════ -->
+    <nav
+      class="obs-sticky obs-top-0 obs-z-50 obs-border-b obs-backdrop-blur obs-bg-opacity-80"
+    >
+      <div
+        class="obs-container obs-flex obs-items-center obs-justify-between obs-py-4"
+      >
+        <a
+          href="#"
+          class="obs-flex obs-items-center obs-gap-2 obs-link"
+          aria-label="Obscura Home"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <circle cx="12" cy="12" r="4" />
+            <line x1="4.93" y1="4.93" x2="9.17" y2="9.17" />
+            <line x1="14.83" y1="14.83" x2="19.07" y2="19.07" />
+            <line x1="14.83" y1="9.17" x2="19.07" y2="4.93" />
+            <line x1="14.83" y1="9.17" x2="18.36" y2="5.64" />
+            <line x1="4.93" y1="19.07" x2="9.17" y2="14.83" />
+          </svg>
+          <span class="obs-font-semibold obs-text-sm">Obscura</span>
+        </a>
+        <div class="obs-flex obs-items-center obs-gap-6">
+          <a
+            href="#features"
+            class="obs-link obs-text-sm obs-hidden md:obs-flex"
+            >Features</a
+          >
+          <a href="#code" class="obs-link obs-text-sm obs-hidden md:obs-flex"
+            >Docs</a
+          >
+          <a
+            href="https://github.com/obscura"
+            class="obs-link obs-text-sm obs-hidden md:obs-flex"
+            >GitHub</a
+          >
+          <button
+            class="obs-btn obs-btn-sm obs-btn-primary"
+            data-on:click="scrollToCta"
+          >
+            Book a call
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════════════════════════ -->
+    <section class="obs-py-32 obs-border-b">
+      <div class="obs-container">
+        <div class="obs-max-w-2xl">
+          <h1
+            class="obs-text-hero obs-font-bold obs-leading-tight obs-tracking-tight dv-fade-in"
+          >
+            Give every agent<br />its own browser.
+          </h1>
+          <p
+            class="obs-text-lg obs-text-secondary obs-leading-relaxed obs-mt-8 obs-max-w-md dv-fade-in dv-delay-1"
+          >
+            Clean, isolated browser sessions in milliseconds. We run the
+            infrastructure and the automation, sized to your job.
+          </p>
+          <div
+            class="obs-flex obs-items-center obs-gap-4 obs-mt-10 dv-fade-in dv-delay-2"
+          >
+            <button
+              class="obs-btn obs-btn-primary obs-btn-lg"
+              data-on:click="scrollToCta"
+            >
+              Book a call
+            </button>
+            <button
+              class="obs-btn obs-btn-ghost obs-btn-lg"
+              data-on:click="scrollToCode"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+              Read the docs
+            </button>
+          </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div
+          class="obs-grid obs-grid-cols-1 md:obs-grid-cols-3 obs-gap-8 obs-mt-20 obs-pt-12 obs-border-t dv-fade-in dv-delay-3"
+        >
+          <dv-counter
+            data-target="50"
+            data-suffix="ms"
+            data-label="Session start time"
+          ></dv-counter>
+          <dv-counter
+            data-target="10"
+            data-prefix=""
+            data-suffix="× leaner"
+            data-label="Memory vs. Chrome"
+          ></dv-counter>
+          <dv-counter
+            data-target="100"
+            data-prefix=""
+            data-suffix="%"
+            data-label="Fully isolated sessions"
+          ></dv-counter>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     PROBLEM - Chrome is the bottleneck.
+     ═══════════════════════════════════════════════════════════════ -->
+    <section id="features" class="obs-py-32">
+      <div class="obs-container">
+        <div class="obs-max-w-xl">
+          <p class="obs-section-label obs-mb-6">The problem</p>
+          <h2
+            class="obs-text-display obs-font-bold obs-leading-tight obs-tracking-tight"
+          >
+            Chrome is the bottleneck.
+          </h2>
+          <p
+            class="obs-text-md obs-text-secondary obs-leading-relaxed obs-mt-6"
+          >
+            It was built for people browsing one page at a time, not software
+            running thousands of sessions at once. That mismatch shows up as
+            cost, latency, and flaky results.
+          </p>
+        </div>
+
+        <div
+          class="obs-grid obs-grid-cols-1 md:obs-grid-cols-3 obs-gap-8 obs-mt-16"
+        >
+          <div class="obs-feature dv-fade-in">
+            <span class="obs-feature-num">01</span>
+            <h3 class="obs-feature-title">Heavy at scale</h3>
+            <p class="obs-feature-desc">
+              Every Chrome instance eats memory and CPU. Run thousands of them
+              and your bill climbs fast, all for features no agent ever touches.
+            </p>
+          </div>
+          <div class="obs-feature dv-fade-in dv-delay-1">
+            <span class="obs-feature-num">02</span>
+            <h3 class="obs-feature-title">Slow to start</h3>
+            <p class="obs-feature-desc">
+              Cold starts take whole seconds. Multiply that across every task in
+              a pipeline and your throughput grinds to a crawl.
+            </p>
+          </div>
+          <div class="obs-feature dv-fade-in dv-delay-2">
+            <span class="obs-feature-num">03</span>
+            <h3 class="obs-feature-title">State bleeds</h3>
+            <p class="obs-feature-desc">
+              Cookies, logins, and cached data carry over from one run to the
+              next. That leaks data and makes results impossible to reproduce.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     SOLUTION - A browser, redefined.
+     ═══════════════════════════════════════════════════════════════ -->
+    <section class="obs-py-32 obs-border-t">
+      <div class="obs-container">
+        <div class="obs-max-w-xl">
+          <p class="obs-section-label obs-mb-6">The solution</p>
+          <h2
+            class="obs-text-display obs-font-bold obs-leading-tight obs-tracking-tight"
+          >
+            A browser, redefined.
+          </h2>
+          <p
+            class="obs-text-md obs-text-secondary obs-leading-relaxed obs-mt-6"
+          >
+            Obscura keeps only what machines need. Faster, cheaper, and safer
+            than Chrome, with none of the rewrites.
+          </p>
+        </div>
+
+        <div
+          class="obs-grid obs-grid-cols-1 lg:obs-grid-cols-4 obs-gap-5 obs-mt-16"
+        >
+          <div class="obs-step dv-fade-in">
+            <dv-counter
+              data-target="50"
+              data-suffix="ms"
+              data-label=""
+            ></dv-counter>
+            <h3 class="obs-step-title obs-mt-4">Boot on demand</h3>
+            <p class="obs-step-desc">
+              Sessions boot in under 50 milliseconds, not seconds. Spin up when
+              you need them, tear down when you're done.
+            </p>
+          </div>
+          <div class="obs-step dv-fade-in dv-delay-1">
+            <div
+              class="obs-text-hero obs-font-bold obs-leading-tight obs-tracking-tight obs-text-primary"
+              style="font-size: clamp(32px, 4vw, 48px)"
+            >
+              Zero
+            </div>
+            <h3 class="obs-step-title obs-mt-4">Clean every time</h3>
+            <p class="obs-step-desc">
+              Every session is a fresh sandbox with nothing shared. No leaked
+              cookies, no contamination, fully reproducible runs.
+            </p>
+          </div>
+          <div class="obs-step dv-fade-in dv-delay-2">
+            <div
+              class="obs-text-hero obs-font-bold obs-leading-tight obs-tracking-tight obs-text-primary"
+              style="font-size: clamp(32px, 4vw, 48px)"
+            >
+              10×
+            </div>
+            <h3 class="obs-step-title obs-mt-4">More per machine</h3>
+            <p class="obs-step-desc">
+              A fraction of Chrome's memory footprint, so you pack far more
+              concurrent sessions onto every machine you run.
+            </p>
+          </div>
+          <div class="obs-step dv-fade-in dv-delay-3">
+            <div
+              class="obs-text-hero obs-font-bold obs-leading-tight obs-tracking-tight obs-text-primary"
+              style="font-size: clamp(32px, 4vw, 48px)"
+            >
+              CDP
+            </div>
+            <h3 class="obs-step-title obs-mt-4">Keep your stack</h3>
+            <p class="obs-step-desc">
+              Works with Playwright and the Chrome DevTools Protocol. Point your
+              existing scripts at Obscura and go.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     CODE - From zero to a browser in one call.
+     ═══════════════════════════════════════════════════════════════ -->
+    <section id="code" class="obs-py-32 obs-border-t">
+      <div class="obs-container">
+        <div class="obs-max-w-xl">
+          <p class="obs-section-label obs-mb-6">Integration</p>
+          <h2
+            class="obs-text-display obs-font-bold obs-leading-tight obs-tracking-tight"
+          >
+            From zero to a browser in one call.
+          </h2>
+          <p
+            class="obs-text-md obs-text-secondary obs-leading-relaxed obs-mt-6"
+          >
+            Keep the Playwright or Puppeteer code you already have. Point it at
+            Obscura over CDP and connect, drive, and scale, no rewrites.
+          </p>
+        </div>
+
+        <div class="obs-mt-12 obs-relative">
+          <div class="obs-code-block obs-rounded-lg">
+            <button
+              class="obs-btn obs-btn-sm obs-btn-ghost obs-absolute"
+              style="top: var(--space-4); right: var(--space-4)"
+              data-on:click="copyCode"
+              aria-label="Copy code"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="9" y="9" width="13" height="13" rx="2" />
+                <path
+                  d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                />
+              </svg>
+              Copy
+            </button>
+            <pre><code><span class="obs-cmt"># connect Playwright to a clean, isolated browser over CDP</span>
+<span class="obs-kw">from</span> playwright.sync_api <span class="obs-kw">import</span> sync_playwright
+
+CDP = <span class="obs-str">"wss://api.obscura.sh/cdp?token=YOUR_TOKEN"</span>
+
+<span class="obs-kw">with</span> sync_playwright() <span class="obs-kw">as</span> p:
+    browser = p.chromium.connect_over_cdp(CDP)
+    page = browser.new_page()
+    page.goto(<span class="obs-str">"https://example.com"</span>)
+    data = page.inner_text(<span class="obs-str">"body"</span>)</code></pre>
+          </div>
+        </div>
+
+        <!-- Steps -->
+        <div
+          class="obs-grid obs-grid-cols-1 md:obs-grid-cols-3 obs-gap-8 obs-mt-16"
+        >
+          <div class="obs-feature dv-fade-in">
+            <span class="obs-feature-num">01</span>
+            <h3 class="obs-feature-title">Connect</h3>
+            <p class="obs-feature-desc">
+              One API key spins up an isolated browser in milliseconds. No
+              servers to run.
+            </p>
+          </div>
+          <div class="obs-feature dv-fade-in dv-delay-1">
+            <span class="obs-feature-num">02</span>
+            <h3 class="obs-feature-title">Drive</h3>
+            <p class="obs-feature-desc">
+              Navigate, click, type, and extract data with Playwright or CDP. No
+              rewrites.
+            </p>
+          </div>
+          <div class="obs-feature dv-fade-in dv-delay-2">
+            <span class="obs-feature-num">03</span>
+            <h3 class="obs-feature-title">Scale</h3>
+            <p class="obs-feature-desc">
+              Run thousands of sessions in parallel, with capacity sized to the
+              job and operated for you.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     OPEN SOURCE
+     ═══════════════════════════════════════════════════════════════ -->
+    <section class="obs-py-32 obs-border-t">
+      <div class="obs-container">
+        <div class="obs-max-w-xl">
+          <p class="obs-section-label obs-mb-6">Deployment</p>
+          <h2
+            class="obs-text-display obs-font-bold obs-leading-tight obs-tracking-tight"
+          >
+            Run it our way, or yours.
+          </h2>
+          <p
+            class="obs-text-md obs-text-secondary obs-leading-relaxed obs-mt-6"
+          >
+            Obscura is open source and fully yours. Use our managed cloud, or
+            self-host the engine in a single Docker container. No lock-in, ever.
+          </p>
+          <div class="obs-flex obs-items-center obs-gap-4 obs-mt-10">
+            <a href="#" class="obs-btn obs-btn-primary">Get started</a>
+            <a href="#" class="obs-btn obs-btn-ghost">View on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     DOTTED PATTERN SECTION
+     ═══════════════════════════════════════════════════════════════ -->
+    <section class="obs-py-32 obs-border-t obs-dots">
+      <div class="obs-container">
+        <div class="obs-max-w-2xl obs-mx-auto obs-text-center">
+          <h2
+            class="obs-text-display obs-font-bold obs-leading-tight obs-tracking-tight"
+          >
+            Built for machines,<br />not humans.
+          </h2>
+          <p
+            class="obs-text-md obs-text-secondary obs-leading-relaxed obs-mt-6 obs-max-w-md obs-mx-auto"
+          >
+            Every decision in Obscura's architecture prioritizes headless
+            performance, deterministic behavior, and cost efficiency at scale.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     FAQ
+     ═══════════════════════════════════════════════════════════════ -->
+    <section class="obs-py-32 obs-border-t">
+      <div class="obs-container obs-max-w-2xl">
+        <p class="obs-section-label obs-mb-6">FAQ</p>
+        <h2
+          class="obs-text-display obs-font-bold obs-leading-tight obs-tracking-tight obs-mb-12"
+        >
+          Common questions.
+        </h2>
+        <dv-accordion>
+          <div class="dv-accordion-item" data-open="false">
+            <button class="dv-accordion-trigger">
+              How does Obscura compare to headless Chrome?
+            </button>
+            <div class="dv-accordion-panel">
+              Obscura is purpose-built for automation. It strips away everything
+              a human browser needs (UI rendering, extensions, profile
+              management) and keeps only what machines require: CDP compliance,
+              session isolation, and fast boot times. The result is 10× lower
+              memory usage and sub-50ms cold starts.
+            </div>
+          </div>
+          <div class="dv-accordion-item" data-open="false">
+            <button class="dv-accordion-trigger">
+              Do I need to rewrite my Playwright scripts?
+            </button>
+            <div class="dv-accordion-panel">
+              No. Obscura speaks the Chrome DevTools Protocol. Change one line -
+              your WebSocket endpoint - and your existing Playwright, Puppeteer,
+              or Selenium CDP scripts work unchanged.
+            </div>
+          </div>
+          <div class="dv-accordion-item" data-open="false">
+            <button class="dv-accordion-trigger">
+              Is every session truly isolated?
+            </button>
+            <div class="dv-accordion-panel">
+              Yes. Every session boots from a clean image with zero shared
+              state. No cookies, no cache, no localStorage, no leaked
+              credentials. When the session ends, everything is destroyed.
+            </div>
+          </div>
+          <div class="dv-accordion-item" data-open="false">
+            <button class="dv-accordion-trigger">
+              Can I self-host Obscura?
+            </button>
+            <div class="dv-accordion-panel">
+              Absolutely. Obscura is open source under the MIT license. Run it
+              as a single Docker container on your own infrastructure, or use
+              our managed cloud for zero-ops scaling.
+            </div>
+          </div>
+        </dv-accordion>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     CTA
+     ═══════════════════════════════════════════════════════════════ -->
+    <section id="cta" class="obs-py-32 obs-border-t">
+      <div class="obs-container">
+        <div class="obs-max-w-xl">
+          <h2
+            class="obs-text-display obs-font-bold obs-leading-tight obs-tracking-tight"
+          >
+            Give your agents a better browser.
+          </h2>
+          <p
+            class="obs-text-md obs-text-secondary obs-leading-relaxed obs-mt-6"
+          >
+            Book a short call. Tell us the job, and we will show you exactly how
+            Obscura runs it and what it delivers.
+          </p>
+          <div class="obs-flex obs-items-center obs-gap-4 obs-mt-10">
+            <button
+              class="obs-btn obs-btn-primary obs-btn-lg"
+              data-on:click="showToast"
+              data-toast="Thanks! We'll be in touch."
+            >
+              Book a call
+            </button>
+            <a
+              href="mailto:hello@obscura.sh"
+              class="obs-btn obs-btn-ghost obs-btn-lg"
+              >hello@obscura.sh</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════════════ -->
+    <footer class="obs-border-t">
+      <div
+        class="obs-container obs-py-12 obs-flex obs-flex-col md:obs-flex-row obs-items-center obs-justify-between obs-gap-6"
+      >
+        <div class="obs-flex obs-items-center obs-gap-2">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <circle cx="12" cy="12" r="4" />
+            <line x1="4.93" y1="4.93" x2="9.17" y2="9.17" />
+            <line x1="14.83" y1="14.83" x2="19.07" y2="19.07" />
+            <line x1="14.83" y1="9.17" x2="19.07" y2="4.93" />
+            <line x1="14.83" y1="9.17" x2="18.36" y2="5.64" />
+            <line x1="4.93" y1="19.07" x2="9.17" y2="14.83" />
+          </svg>
+          <span class="obs-text-sm obs-text-secondary">© 2026 Obscura</span>
+        </div>
+        <div class="obs-flex obs-items-center obs-gap-6">
+          <a href="#" class="obs-link obs-text-sm obs-text-secondary"
+            >Privacy</a
+          >
+          <a href="#" class="obs-link obs-text-sm obs-text-secondary">Terms</a>
+          <a href="#" class="obs-link obs-text-sm obs-text-secondary">GitHub</a>
+          <a href="#" class="obs-link obs-text-sm obs-text-secondary"
+            >Twitter</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     TOAST CONTAINER
+     ═══════════════════════════════════════════════════════════════ -->
+    <dv-toast-container></dv-toast-container>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     DEVINIMJS RUNTIME
+     ═══════════════════════════════════════════════════════════════ -->
+    <script type="module">
+      const html = (strings, ...values) => {
+        let result = strings[0];
+        for (let i = 0; i < values.length; i++)
+          result += values[i] + strings[i + 1];
+        return result;
+      };
+
+      class BaseComponent extends HTMLElement {
+        constructor() {
+          super();
+          this._state = {};
+          this._props = {};
+        }
+        connectedCallback() {
+          this._readProps();
+          this._state = this._createProxy(
+            this.initialState ? this.initialState() : {},
+          );
+          this.render();
+          this._bindEvents();
+        }
+        _readProps() {
+          for (const attr of this.attributes) {
+            if (attr.name.startsWith("data-")) {
+              const key = attr.name
+                .slice(5)
+                .replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+              const val = attr.value;
+              this._props[key] = isNaN(val)
+                ? val === "true"
+                  ? true
+                  : val === "false"
+                    ? false
+                    : val
+                : Number(val);
+            }
+          }
+        }
+        get props() {
+          return this._props;
+        }
+        get state() {
+          return this._state;
+        }
+        num(key, fallback = 0) {
+          const val = this.getAttribute(`data-${key}`);
+          return val !== null ? Number(val) : fallback;
+        }
+        _createProxy(target) {
+          const self = this;
+          return new Proxy(target, {
+            set(obj, prop, value) {
+              obj[prop] = value;
+              self.render();
+              return true;
+            },
+          });
+        }
+        render() {
+          if (!this.template) return;
+          const content = this.template();
+          if (this._lastHtml !== content) {
+            this.innerHTML = content;
+            this._lastHtml = content;
+            this._bindEvents();
+          }
+        }
+        _bindEvents() {
+          this.querySelectorAll("[data-on\:click]").forEach((el) => {
+            const method = el.getAttribute("data-on:click");
+            el.onclick = (e) => {
+              e.preventDefault();
+              if (this[method]) this[method](e);
+            };
+          });
+        }
+      }
+      const define = (name, cls) => {
+        if (!customElements.get(name)) customElements.define(name, cls);
+      };
+
+      // Counter
+      class DvCounter extends BaseComponent {
+        initialState() {
+          return {
+            count: 0,
+            target: this.num("target", 100),
+            suffix: this.getAttribute("data-suffix") || "",
+            prefix: this.getAttribute("data-prefix") || "",
+            label: this.getAttribute("data-label") || "",
+          };
+        }
+        connectedCallback() {
+          super.connectedCallback();
+          this._animate();
+        }
+        _animate() {
+          const duration = 2000,
+            start = performance.now(),
+            target = this.state.target;
+          const step = (now) => {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            this.state.count =
+              target === 100 && this.state.suffix === "%"
+                ? Math.floor(eased * target)
+                : Math.floor(eased * target);
+            if (progress < 1) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+        }
+        template() {
+          if (this.state.label) {
+            return html`<div class="obs-stat">
+              <div class="obs-stat-value dv-counter-value">
+                ${this.state.prefix}${this.state.count}${this.state.suffix}
+              </div>
+              <div class="obs-stat-label">${this.state.label}</div>
+            </div>`;
+          }
+          return html`<div
+            class="obs-text-hero obs-font-bold obs-leading-tight obs-tracking-tight obs-text-primary"
+            style="font-size: clamp(32px, 4vw, 48px);"
+          >
+            ${this.state.prefix}${this.state.count}${this.state.suffix}
+          </div>`;
+        }
+      }
+      define("dv-counter", DvCounter);
+
+      // Accordion
+      class DvAccordion extends HTMLElement {
+        connectedCallback() {
+          this.addEventListener("click", (e) => {
+            const trigger = e.target.closest(".dv-accordion-trigger");
+            if (!trigger) return;
+            const item = trigger.closest(".dv-accordion-item");
+            const isOpen = item.getAttribute("data-open") === "true";
+            this.querySelectorAll(".dv-accordion-item").forEach((i) =>
+              i.setAttribute("data-open", "false"),
+            );
+            item.setAttribute("data-open", isOpen ? "false" : "true");
+          });
+        }
+      }
+      define("dv-accordion", DvAccordion);
+
+      // Toast
+      class DvToastContainer extends HTMLElement {
+        connectedCallback() {
+          window.showDvToast = (message) => {
+            const toast = document.createElement("div");
+            toast.className = "dv-toast";
+            toast.innerHTML = `<span>${message}</span>`;
+            this.appendChild(toast);
+            setTimeout(() => {
+              toast.classList.add("leaving");
+              setTimeout(() => toast.remove(), 180);
+            }, 3000);
+          };
+        }
+      }
+      define("dv-toast-container", DvToastContainer);
+
+      // Global events
+      document.addEventListener("click", (e) => {
+        const el = e.target.closest("[data-on\:click]");
+        if (!el) return;
+        const action = el.getAttribute("data-on:click");
+        const toastMsg = el.getAttribute("data-toast");
+        if (action === "scrollToCta") {
+          e.preventDefault();
+          document.getElementById("cta").scrollIntoView({ behavior: "smooth" });
+        }
+        if (action === "scrollToCode") {
+          e.preventDefault();
+          document
+            .getElementById("code")
+            .scrollIntoView({ behavior: "smooth" });
+        }
+        if (action === "showToast" && toastMsg) {
+          e.preventDefault();
+          if (window.showDvToast) window.showDvToast(toastMsg);
+        }
+        if (action === "copyCode") {
+          e.preventDefault();
+          const code = document.querySelector(".obs-code-block code").innerText;
+          navigator.clipboard.writeText(code);
+          if (window.showDvToast) window.showDvToast("Copied to clipboard");
+        }
+      });
+
+      // Intersection Observer for fade-in animations
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.animationPlayState = "running";
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      document.querySelectorAll(".dv-fade-in").forEach((el) => {
+        el.style.animationPlayState = "paused";
+        observer.observe(el);
+      });
+    </script>
+  </body>
+</html>
